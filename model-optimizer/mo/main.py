@@ -19,6 +19,13 @@ try:
 except ImportError:
     import mo.utils.telemetry_stub as tm
 
+import gamma_core.add_parent_to_sys
+
+# Add ngraph into path
+from gamma_core.utils import add_sys_path
+add_sys_path("/home/ubuntu/git.repo/openvino/bin/intel64/Release/lib/python_api/python3.8")
+print(sys.path)
+
 from extensions.back.SpecialNodesFinalization import RemoveConstOps, CreateConstNodesReplacement, NormalizeTI
 from mo.back.ie_ir_ver_2.emitter import append_ir_info
 from mo.moc_frontend.pipeline import moc_pipeline

@@ -24,7 +24,10 @@ class ExpandDimsToUnsqueeze(FrontReplacementPattern):
         return [Pack]
 
     def find_and_replace_pattern(self, graph: Graph):
-        for expand_dims_node in graph.get_op_nodes(op='ExpandDims'):
+        #import pudb; pu.db
+        t = graph.get_op_nodes(op='ExpandDims')
+        print("#ExpandDims nodes", len(t))
+        for expand_dims_node in t:
             if len(expand_dims_node.in_nodes()) == 1:
                 expand_axis = expand_dims_node.expand_axis
                 if not isinstance(expand_axis, np.ndarray):
@@ -37,3 +40,4 @@ class ExpandDimsToUnsqueeze(FrontReplacementPattern):
                 unsqueeze_node.in_port(1).connect(unsqueeze_dims_node.out_port(0))
             else:
                 log.error('The ExpandDims node {} has more than 1 input'.format(expand_dims_node.soft_get('name')))
+                pass

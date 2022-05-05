@@ -311,6 +311,7 @@ def apply_replacements_list(graph: Graph, replacers_order: list):
     Apply all transformations from replacers_order
     """
     for i, replacer_cls in enumerate(replacers_order):
+        print(i, replacer_cls)
         apply_transform(
             graph=graph,
             replacer_cls=replacer_cls,
